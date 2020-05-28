@@ -1,5 +1,7 @@
 import './style.css'
-import Lvl1 from './configs/Lvl1'
+import MainMenu from './scenes/Main'
+import Loading from './scenes/Loading'
+import Lvl1 from './scenes/Lvl1'
 import Params from './params'
 
 const doc = global.document
@@ -29,7 +31,13 @@ const config = {
             debug: true
         }
     },
-    scene: [ Lvl1 ]
+    scene: [ Loading, MainMenu, Lvl1 ],
+    render: {
+        pixelArt : true
+    },
+    dom: {
+        createContainer: true
+    },
 }
 
 const game = new Phaser.Game(config)

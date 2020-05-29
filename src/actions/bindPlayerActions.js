@@ -19,6 +19,10 @@ const playerActions = (player, scene, {keyRight, keyLeft, keyUp, keyDown, keyJum
         if(!player.onPlatform){
             player.anims.play(actJump)
         }
-        player.setOrigin(0, 0)}
+        player.setOffset((player.width - player.body.width)/2, 0)
+        player.setOrigin(0.5, 0)
+        console.log(player.width)
+        console.log(player.body.width)
+    }
 
 export default playerActions

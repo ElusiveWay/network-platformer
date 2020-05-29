@@ -14,7 +14,7 @@ import p1defgjump from '../assets/models/player1-defaultGun/prig.png'
 //
 
 const player1images = (scene) => {
-    scene.load.spritesheet('p1defgrun', p1defgrun,{frameWidth: 43, frameHeight: 73})
+    scene.load.spritesheet('p1defgrun', p1defgrun,{frameWidth: 44, frameHeight: 73})
     scene.load.image('p1defgstay2', p1defgstay2)
     scene.load.image('p1defgstay1', p1defgstay1)
     scene.load.image('p1defgjump', p1defgjump)

@@ -27,7 +27,8 @@ module.exports = {
           use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        type: 'javascript/auto',
+        test: /\.(png|jpe?g|gif|json)$/i,
         use: [
           {
             loader: 'file-loader',

@@ -6,6 +6,9 @@ import bg2img from '../assets/bg-s/bg1-animated/2.png'
 import bg3img from '../assets/bg-s/bg1-animated/3.png'
 import bg4img from '../assets/bg-s/bg1-animated/4.png'
 
+import terrain from '../assets/world/atlas/map.png'
+import mappy from '../assets/world/atlas/world-tilemap.json'
+
 import ground from '../assets/world/ground.png'
 import wireX from '../assets/world/wireX.png'
 import gunStore from '../assets/models/gunstore.png'
@@ -24,8 +27,17 @@ class Lvl1 extends Phaser.Scene {
         this.load.image('ground', ground)
         this.load.image('wireX', wireX)
         this.load.image('gunStore', gunStore)
+        //map
+        this.load.image('terrain', terrain)
+        this.load.tilemapTiledJSON('mappy', mappy)
     }
     create(){
+        this.level = {
+            w : 1600,
+            h : 1600
+        }
+        this.physics.world.setBounds(0, 0, this.level.w, this.level.h);
+        this.cameras.main.setBounds(0, 0, this.level.w, this.level.h);
         //animations
         player1animations(this)
         this.anims.create({
@@ -37,18 +49,15 @@ class Lvl1 extends Phaser.Scene {
             repeat: -1
         })
         //background
-        this.background = this.add.sprite(Params.width/2, Params.height/2, 'bg1-animated-1').play('bg1-anim')
-        this.background.displayHeight = Params.height
-        this.background.displayWidth = Params.width
+        this.background = this.add.sprite(this.level.w/2, this.level.h/2, 'bg1-animated-1').play('bg1-anim')
+        this.background.displayHeight = this.level.h
+        this.background.displayWidth = this.level.h*1.3
+        this.background.alpha = .2
         //platforms group
         this.platforms = this.physics.add.staticGroup()
-        //platforms
-        this.ground = this.add.rectangle(0, Params.height - 23, 10000, 46, 0x008c00)
-        this.platforms.add(this.ground)
-        this.platforms.createFromConfig({key : 'wireX', setXY : { x: 300, y: Params.height - 300 }})
-        this.platforms.createFromConfig({key : 'wireX', setXY : { x: 600, y: Params.height - 150 }})
         // player
-        this.player = this.physics.add.sprite(50, Params.height - 150, 'p1stay')
+        this.player = this.physics.add.sprite(50, this.level.h - 150, 'p1stay')
+        this.cameras.main.startFollow(this.player, true);
         this.player.setCollideWorldBounds(true)
         this.a = this.input.keyboard.addKey('A')
         this.d = this.input.keyboard.addKey('D')
@@ -61,8 +70,13 @@ class Lvl1 extends Phaser.Scene {
         this.actionGroup =  this.physics.add.group()
         this.actionGroup.defaults.setCollideWorldBounds = true
         this.actionGroup.defaults.setBounceY = .5
-        this.actionGroup.add(this.add.image(400,400,'gunStore'))
-        
+        this.actionGroup.add(this.add.image(400,this.level.h - 300,'gunStore'))
+        //map
+        this.mappy = this.add.tilemap('mappy')
+        this.terrain = this.mappy.addTilesetImage('map', 'terrain')
+        this.botLayer = this.mappy.createStaticLayer('bot', [this.terrain], 0, 0)
+        this.physics.add.collider(this.player, this.botLayer)
+        this.botLayer.setCollisionBetween(1, 1600, true);
     }   
     actions(a,b){
         const type = b.texture.key
@@ -79,7 +93,7 @@ class Lvl1 extends Phaser.Scene {
         }
     }
     update(){
-        (!this.player.chGun) && (!this.player.bashed) && playerActions(this.player, this.platforms, this, {
+        (!this.player.chGun) && (!this.player.bashed) && playerActions(this.player, this, {
             keyUp : this.w,
             keyLeft : this.a,
             keyRight : this.d,
@@ -90,7 +104,7 @@ class Lvl1 extends Phaser.Scene {
             actJump : 'p1jump',
             actStay : 'p1stay',
         })
-        this.player.chGun === 'defaultGun' && (!this.player.bashed) && playerActions(this.player, this.platforms, this, {
+        this.player.chGun === 'defaultGun' && (!this.player.bashed) && playerActions(this.player, this, {
             keyUp : this.w,
             keyLeft : this.a,
             keyRight : this.d,
@@ -105,9 +119,7 @@ class Lvl1 extends Phaser.Scene {
             acttStayBot : 'p1defgstaybot',
             actJump : 'p1defgjump',
         })
-        console.log(this.player.anims.currentAnim.key)
-        this.physics.world.collide(this.player, this.platforms)
-        this.physics.world.collide(this.actionGroup, this.platforms)
+        this.physics.world.collide(this.botLayer, this.actionGroup)
         this.physics.world.overlap(this.player, this.actionGroup, this.actions)
     }
 }

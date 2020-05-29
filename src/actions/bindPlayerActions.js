@@ -1,6 +1,6 @@
-const playerActions = (player, collisionObj, scene, {keyRight, keyLeft, keyUp, keyDown, keyJump},{actRun, actStay, actJump},speedX=200, speedY=500) => {
+const playerActions = (player, scene, {keyRight, keyLeft, keyUp, keyDown, keyJump},{actRun, actStay, actJump},speedX=200, speedY=500) => {
         player.setVelocityX(0)
-        player.onPlatform = (scene.physics.world.collide(player, collisionObj) && player.body.blocked.down)
+        player.onPlatform = (player.body.blocked.down)
         if ( keyRight.isDown ){
             player.flipX = 0
             player.setVelocityX(speedX)
@@ -19,8 +19,6 @@ const playerActions = (player, collisionObj, scene, {keyRight, keyLeft, keyUp, k
         if(!player.onPlatform){
             player.anims.play(actJump)
         }
-        player.setOrigin(0, 0)
-        // player.setOffset(Math.abs((player.frame.realWidth - player.body.width)/2),-Math.abs((player.frame.realHeight - player.body.height)/2))
-}
+        player.setOrigin(0, 0)}
 
 export default playerActions

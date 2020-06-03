@@ -7,7 +7,9 @@ import bg3img from '../assets/bg-s/bg1-animated/3.png'
 import bg4img from '../assets/bg-s/bg1-animated/4.png'
 
 import terrain from '../assets/world/atlas/world.png'
+import world_nrm from '../assets/world/atlas/world_NRM.jpg'
 import nonsolid from '../assets/world/atlas/nonsolid.png'
+import nonsolid_nrm from '../assets/world/atlas/nonsolid_NRM.jpg'
 import mappy from '../assets/world/atlas/world-tilemap.json'
 
 import gunStore from '../assets/models/gunstore.png'
@@ -27,7 +29,7 @@ class Lvl1 extends Phaser.Scene {
         this.load.image('gunStore', [gunStore, img_map])
         //map
         this.load.image('terrain', [terrain,img_map])
-        this.load.image('nonsolid', [nonsolid,img_map])
+        this.load.image('nonsolid', [nonsolid,nonsolid_nrm])
         this.load.tilemapTiledJSON('mappy', mappy)
     }
     create(){
@@ -40,10 +42,10 @@ class Lvl1 extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.level.w, this.level.h)
         this.cameras.main.setBounds(0, 0, this.level.w, this.level.h)
         //lights
-        this.lights.enable().setAmbientColor(0x222222)
+        this.lights.enable().setAmbientColor(0x383838)
         this.lamp = this.lights
-            .addLight(0, 0, 350)
-            .setIntensity(2)
+            .addLight(0, 0, 450)
+            .setIntensity(1.5)
         this.input.on('pointermove',(pointer)=>{
             
         })

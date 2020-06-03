@@ -1,6 +1,7 @@
+const width = 800;
 const Params = {
-    width: 800,
-    height: 600
+    width: width,
+    height: width*window.screen.height/window.screen.width
 }
 
 export default Params

@@ -20,18 +20,22 @@ doc.body.appendChild(phas)
 //Phaser init
 
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     width: Params.width,
     height: Params.height,
     parent:'phaser-wrapper',
+    maxLights: 30,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 800 },
-            debug: true
+            debug: false
         }
     },
     scene: [ Loading, MainMenu, Lvl1 ],
+    scale: {
+        mode: Phaser.Scale.FIT,
+    },
     render: {
         pixelArt : true
     },

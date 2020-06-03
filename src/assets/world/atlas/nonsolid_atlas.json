@@ -1,0 +1,203 @@
+{
+    "frames": [
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-eeygerzhke8v",
+            "frame": {
+                "w": 439,
+                "h": 159,
+                "x": 10,
+                "y": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-iyjqhjq3y6w",
+            "frame": {
+                "w": 403,
+                "h": 246,
+                "x": 10,
+                "y": 179
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-zy342v9taagko",
+            "frame": {
+                "w": 333,
+                "h": 225,
+                "x": 10,
+                "y": 435
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-td3auivkho5w",
+            "frame": {
+                "w": 327,
+                "h": 212,
+                "x": 459,
+                "y": 10
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-eqyqi1hmtc",
+            "frame": {
+                "w": 283,
+                "h": 188,
+                "x": 353,
+                "y": 435
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "rozisk",
+            "frame": {
+                "w": 241,
+                "h": 187,
+                "x": 423,
+                "y": 232
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-nfhlccovjlp",
+            "frame": {
+                "w": 89,
+                "h": 188,
+                "x": 674,
+                "y": 232
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "1",
+            "frame": {
+                "w": 65,
+                "h": 124,
+                "x": 646,
+                "y": 430
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "2",
+            "frame": {
+                "w": 65,
+                "h": 124,
+                "x": 721,
+                "y": 430
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "3",
+            "frame": {
+                "w": 65,
+                "h": 124,
+                "x": 10,
+                "y": 670
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "skaner",
+            "frame": {
+                "w": 65,
+                "h": 109,
+                "x": 85,
+                "y": 670
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "printer",
+            "frame": {
+                "w": 65,
+                "h": 108,
+                "x": 160,
+                "y": 670
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-s0kvkatosm1wzbg0",
+            "frame": {
+                "w": 55,
+                "h": 104,
+                "x": 235,
+                "y": 670
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "gunstore",
+            "frame": {
+                "w": 48,
+                "h": 78,
+                "x": 300,
+                "y": 670
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "imgonline-com-ua-transparent-backgr-qnrwrqdgsd2dw",
+            "frame": {
+                "w": 65,
+                "h": 69,
+                "x": 646,
+                "y": 564
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

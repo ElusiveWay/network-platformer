@@ -21,8 +21,6 @@ const playerActions = (player, scene, {keyRight, keyLeft, keyUp, keyDown, keyJum
         }
         player.setOffset((player.width - player.body.width)/2, 0)
         player.setOrigin(0.5, 0)
-        console.log(player.width)
-        console.log(player.body.width)
     }
 
 export default playerActions

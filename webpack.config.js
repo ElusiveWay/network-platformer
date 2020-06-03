@@ -12,6 +12,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: [ /\.vert$/, /\.frag$/ ],
+        use: require.resolve('raw-loader')
+      },
+      {
         test: /\.m?js$/,
         exclude: /(node_modules|bower_components)/,
         use: {

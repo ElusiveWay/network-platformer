@@ -41,6 +41,15 @@ class Lvl1 extends Phaser.Scene {
         }
         this.physics.world.setBounds(0, 0, this.level.w, this.level.h)
         this.cameras.main.setBounds(0, 0, this.level.w, this.level.h)
+        //ui
+        this.pressE = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 10, 'Press E to use!').setOrigin(.5,.5).setScrollFactor(0,0).setDepth(10).setVisible(false);
+        this.attantionLight = this.lights.addLight(0,0,200,0xffff77,0)
+        this.attantionText = this.add.text(this.game.renderer.width / 2, this.game.renderer.height * 3.5 / 4, 'Думаю, это оружие нам понадобится!').setOrigin(.5,.5).setScrollFactor(0,0).setDepth(10).setVisible(false);
+        //minimap
+        this.moniq = this.cameras.add(this.game.renderer.width / 4, this.game.renderer.height / 8,this.game.renderer.width / 2, this.game.renderer.height / 1.5).setZoom(.5).setOrigin(.5,.5).setVisible(false)
+        this.moniq.setBackgroundColor(0x000000).centerOn(24*16, 88*16)
+        this.moniq.setBounds(0,0,this.level.w,this.level.h)
+        this.moniq.ignore([this.pressE,this.attantionText])
         //lights
         this.lights.enable().setAmbientColor(0x383838)
         this.lamp = this.lights
@@ -65,6 +74,13 @@ class Lvl1 extends Phaser.Scene {
         this.background.displayHeight = this.level.h
         this.background.displayWidth = this.level.h*1.3
         this.background.alpha = .15
+
+        this.notTransparentBg = this.add.graphics({
+            fillStyle:{
+                color: 0x000000
+            }
+        }).setDepth(-10000)
+        this.notTransparentBg.fillRect(0, 0, this.level.w, this.level.h)
         //platforms group
         this.platforms = this.physics.add.staticGroup()
         // player
@@ -76,6 +92,7 @@ class Lvl1 extends Phaser.Scene {
         this.g = this.input.keyboard.addKey('G')
         this.w = this.input.keyboard.addKey('W')
         this.s = this.input.keyboard.addKey('S')
+        this.e = this.input.keyboard.addKey('E')
         //keys
         this.cursor = this.input.keyboard.createCursorKeys()
         //action group
@@ -97,11 +114,47 @@ class Lvl1 extends Phaser.Scene {
         this.backLayer.setPipeline('Light2D').setDepth(-1)
         const BackLayerStartIndex = this.backLayer.gidMap.length - this.backLayer.gidMap.filter(v=>v!==undefined).length
         const GunStoreIndexes = [2273,2274,2275,2175,2176,2177].map(v=>v+BackLayerStartIndex)
-        this.backLayer.setTileIndexCallback(GunStoreIndexes, this.myfnc, this)
+        const MonitorIndexes = [2402,2403,2404,2353,2354,2355,2255,2256,2257].map(v=>v+BackLayerStartIndex)
+        this.backLayer.setTileIndexCallback(GunStoreIndexes, this.pickGun, this)
+        this.backLayer.setTileIndexCallback(MonitorIndexes, this.watchMomitor, this)
         this.physics.add.overlap(this.player, this.backLayer)
     }   
-    myfnc(a,b){
-        if (b.layer !== undefined && b.layer.name === 'back') {
+    watchMomitor(a,b){
+        this.moniq.setVisible(true)
+        this.attantionText.setVisible(true) 
+        clearTimeout(this.tempTimer)
+        this.tempTimer = setTimeout(()=> {
+            this.moniq.setVisible(false)
+            this.attantionText.setVisible(false)
+            this.tempUi!==undefined && this.tempUi.setVisible(false)
+        }, 50)
+        this.attantionLight.setPosition(24*16, 88*16).setIntensity(1)
+        if (this.tempUi === undefined) 
+        {
+            this.tempUi = this.add.graphics({
+                fillStyle:{
+                    color: 0x051105,
+                }
+            })
+            this.tempUi.fillRect(this.game.renderer.width / 6, this.game.renderer.height / 15, this.game.renderer.width * 4 / 6, this.game.renderer.height * 13 / 15).setScrollFactor(0,0).setAlpha(.8)
+        } else {
+            this.tempUi.setVisible(true)
+        }
+        this.moniq.ignore(this.tempUi)
+
+    }
+    pickGun(a,b){
+        this.pressE.setVisible(true)
+        clearTimeout(this.tempTimer)
+        this.tempTimer = setTimeout(()=> this.pressE.setVisible(false), 50)
+        if (b.layer !== undefined && b.layer.name === 'back' && a.body.blocked.down && this.e.isDown && (!a.bashed)) {
+            a.bashed = true
+            a.setVelocityX(0)
+            a.anims.play('p1defgpick')
+            a.on("animationcomplete", ()=>{
+                a.off("animationcomplete")
+                a.bashed = false
+            })
             if (a.haveGuns && a.haveGuns.every(v=>v!='defaultGun')){
                 a.haveGuns.push('defaultGun')
                 a.chGun  = 'defaultGun'
@@ -110,13 +163,13 @@ class Lvl1 extends Phaser.Scene {
                 if (!a.haveGuns) a.haveGuns = ['defaultGun']
                 a.chGun  = 'defaultGun'
             }
+            // a.play()
         }
         return false
     }
     actions(a,b){
     }
     update(){
-        
         (!this.player.chGun) && (!this.player.bashed) && playerActions(this.player, this, {
             keyUp : this.w,
             keyLeft : this.a,
@@ -146,7 +199,9 @@ class Lvl1 extends Phaser.Scene {
         this.lamp.x = this.player.x
         this.lamp.y = this.player.y
         this.physics.world.collide(this.botLayer, this.actionGroup)
-        // this.physics.world.overlap(this.player, this.actionGroup, this.actions)
+        //sinus light intensity 
+        this.counter = this.counter!==undefined ? this.counter+1 : 0
+        if(this.attantionLight.x !== 0 && this.attantionLight.y !== 0) this.attantionLight.setIntensity(0.5+ Math.abs(Math.sin(this.counter * 0.03))/2)
     }
 }
 

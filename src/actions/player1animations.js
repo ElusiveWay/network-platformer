@@ -11,6 +11,12 @@ import p1defgrun from '../assets/models/player1-defaultGun/run/run.png'
 import p1defgstay1 from '../assets/models/player1-defaultGun/stand/s1.png'
 import p1defgstay2 from '../assets/models/player1-defaultGun/stand/s2.png'
 import p1defgjump from '../assets/models/player1-defaultGun/prig.png'
+/*pick*/ import p1defgrunpick1 from '../assets/models/player1-defaultGun/pick/1.png'
+/*pick*/ import p1defgrunpick2 from '../assets/models/player1-defaultGun/pick/2.png'
+/*pick*/ import p1defgrunpick3 from '../assets/models/player1-defaultGun/pick/3.png'
+/*pick*/ import p1defgrunpick4 from '../assets/models/player1-defaultGun/pick/4.png'
+/*pick*/ import p1defgrunpick5 from '../assets/models/player1-defaultGun/pick/5.png'
+/*pick*/ import p1defgrunpick6 from '../assets/models/player1-defaultGun/pick/6.png'
 //
 
 const player1images = (scene) => {
@@ -24,6 +30,12 @@ const player1images = (scene) => {
     scene.load.image('p1run2', p1run2)
     scene.load.image('p1run3', p1run3)
     scene.load.image('p1run4', p1run4)
+    scene.load.image('p1defgrunpick1', p1defgrunpick1)
+    scene.load.image('p1defgrunpick2', p1defgrunpick2)
+    scene.load.image('p1defgrunpick3', p1defgrunpick3)
+    scene.load.image('p1defgrunpick4', p1defgrunpick4)
+    scene.load.image('p1defgrunpick5', p1defgrunpick5)
+    scene.load.image('p1defgrunpick6', p1defgrunpick6)
 }
 const player1animations = (scene) => {
 scene.anims.create({key:'p1stay', frames : [{key: 'p1stay'}]})
@@ -43,6 +55,14 @@ scene.anims.create({
            ],
         frameRate:10,
         repeat: -1
+    })
+scene.anims.create({
+        key: 'p1defgpick',
+        frames: [
+            {key: 'p1defgrunpick1'}, {key: 'p1defgrunpick2'}, {key: 'p1defgrunpick3'}, {key: 'p1defgrunpick4'}, {key: 'p1defgrunpick5'}, {key: 'p1defgrunpick6'}
+           ],
+        frameRate:10,
+        repeat: 0
     })
 scene.anims.create({
         key: 'p1defgrun',

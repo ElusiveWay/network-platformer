@@ -6,6 +6,7 @@ import bg4img from '../assets/bg-s/bg1-animated/4.png'
 import Params from '../params'
 import {player1animations, player1images} from '../actions/player1animations'
 import Lvl1 from './Lvl1'
+import ControlsView from './ControlsView'
 
 export default class MainMenu extends Phaser.Scene{
     constructor(){
@@ -32,8 +33,8 @@ export default class MainMenu extends Phaser.Scene{
             font: "65px Arial", 
             color: "#00ff44",
         };
+        this.btns = this.add.group()
         this.play = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 3, this.playText, this.playStyle).setOrigin(.5,.5);
-        this.play.setInteractive({ useHandCursor: true  })
         this.play.on('pointerover',() => {
             this.play.setShadow( 5 , 5 , `#${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}`)
             this.play.hover = true
@@ -42,26 +43,28 @@ export default class MainMenu extends Phaser.Scene{
         this.play.on('pointerdown',()=>{
             this.scene.start('Lvl1')
         })
+        this.btns.add(this.play)
         this.controls = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2, this.controlsText, this.playStyle).setOrigin(.5,.5);
-        this.controls.setInteractive({ useHandCursor: true  })
         this.controls.on('pointerover',() => {
             this.controls.setShadow( 5 , 5 , `#${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}`)
             this.controls.hover = true
         })
         this.controls.on('pointerout',() => this.controls.hover = false)
         this.controls.on('pointerdown',()=>{
-            
+            this.btns.setVisible(false)
+            this.scene.launch('ControlsView')
         })
+        this.btns.add(this.controls)
         this.join = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 1.5, this.joinText, this.playStyle).setOrigin(.5,.5);
-        this.join.setInteractive({ useHandCursor: true  }   )
         this.join.on('pointerover',() => {
             this.join.setShadow( 5 , 5 , `#${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}${Math.floor(Math.random()*9)}`)
             this.join.hover = true
         })
         this.join.on('pointerout',() => this.join.hover = false)
         this.join.on('pointerdown',()=>{
-            
         })
+        this.btns.add(this.join)
+        this.btns.children.entries.forEach(v=>v.setInteractive({cursor: 'pointer'}))
     }
     update(){
         this.counter++

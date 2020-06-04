@@ -3,6 +3,7 @@ import MainMenu from './scenes/Main'
 import Loading from './scenes/Loading'
 import Lvl1 from './scenes/Lvl1'
 import Params from './params'
+import ControlsView from './scenes/ControlsView'
 
 const doc = global.document
 
@@ -32,7 +33,7 @@ const config = {
             debug: false
         }
     },
-    scene: [ Loading, MainMenu, Lvl1 ],
+    scene: [ Loading, MainMenu, Lvl1, ControlsView ],
     scale: {
         mode: Phaser.Scale.FIT,
     },
